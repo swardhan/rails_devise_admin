@@ -1,0 +1,26 @@
+<h1>Admin Panel</h1>
+<%= link_to 'Sign Out', destroy_user_session_path, method: :delete %><br>
+
+<% @queries.each do |query| %>
+	Body: <%= query.body %>
+	Reply: <%= query.reply %>
+	Replied: <%= query.replied %>
+	<% if query.user_id %>
+		Assigned to: <%= query.user.email %>
+	<% else %>
+		Unassigned
+		<form action="/update_query" method="POST">
+			<select name="user_id">
+				<% @users.each do |user| %>
+					<% unless user.admin%>
+						<option value=<%= user.id %>><%= user.email %></option>
+					<% end %>
+				<% end %>
+			</select>
+			<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+			<%= hidden_field_tag 'query_id', query.id%>
+			<input type="submit" value="Update Query">
+		</form>
+	<% end %>
+	<br>
+<%end%>

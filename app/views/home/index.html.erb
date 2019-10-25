@@ -1,0 +1,23 @@
+<h1>Welcome</h1>
+
+<%if !user_signed_in? %>
+	<%= link_to 'Sign Up', new_user_registration_path %>
+	<%= link_to 'Sign In', new_user_session_path %>
+<% else %>
+	<% if current_user.admin %>
+		<p>You're an Admin</p>
+		<%= link_to 'Admin Panel', admin_path %><br>
+	<% else %>
+		Email: <%= current_user.email  %><br>
+		<% current_user.queries.each do |query| %>
+			<p><%= query.body %></p>
+			<% if query.replied %>
+				<%= query.reply %>
+				<p>Done</p>>
+			<% else %>
+				<p>Not Replied</p>
+			<% end %>
+		<% end %>
+	<% end %>
+	<%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+<% end %>
