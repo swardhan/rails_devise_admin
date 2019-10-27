@@ -43,18 +43,6 @@ class AdminController < ApplicationController
 			end
 		end
 
-		# messages.each do |message|
-		# 	mail = service.get_user_message('me', message.id, format: 'metadata')
-		# 	mail.payload.headers.each do |h|
-		# 		if h.name == "From"
-		# 			print "===================================================================================="
-		# 			print "Name: "+h.name+", Value: "+h.value
-		# 		end
-		# 	end
-		# end
-		 # sk Kakar <placement.mait@gmail.com>
-		# debugger
-
 		redirect_to admin_path
 	end
 

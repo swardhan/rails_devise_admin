@@ -1,5 +1,8 @@
 <h1>Welcome</h1>
 
+<%= link_to "Authenticate with Google!", '/auth/google_oauth2' %><br>
+
+
 <%if !user_signed_in? %>
 	<%= link_to 'Sign Up', new_user_registration_path %>
 	<%= link_to 'Sign In', new_user_session_path %>
@@ -10,13 +13,25 @@
 	<% else %>
 		Email: <%= current_user.email  %><br>
 		<% current_user.queries.each do |query| %>
-			<p><%= query.body %></p>
-			<% if query.replied %>
-				<%= query.reply %>
-				<p>Done</p>>
-			<% else %>
-			
-			<% end %>
+			<fieldset>
+				<legend>Query: </legend>
+				<p><%= query.body %></p>
+				<% if query.replied %>
+					Reply: <%= query.reply %>
+					<p>Done</p>
+				<% else %>
+					<form action="/reply" method="POST">
+							<%= text_area_tag 'reply_body'%>
+							<%= hidden_field_tag 'query_id', query.id%>
+							<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+							<%= hidden_field_tag 'mail_id', query.mail_id%>
+							<%= hidden_field_tag 'thread_id', query.thread_id%>
+							<%= hidden_field_tag 'subject', query.subject%>
+							<%= hidden_field_tag 'mail_from', query.mail_from%>
+							<input type="submit" value="Send Reply">
+					</form>
+				<% end %>
+			</fieldset>
 		<% end %>
 	<% end %>
 	<%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
