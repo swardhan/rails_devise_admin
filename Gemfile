@@ -6,6 +6,11 @@ ruby '2.5.7'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'json'
+gem 'googleauth'
+gem 'google-api-client', require: 'google/apis/gmail_v1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server

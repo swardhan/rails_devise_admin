@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_25_062917) do
+ActiveRecord::Schema.define(version: 2019_10_26_190741) do
 
   create_table "queries", force: :cascade do |t|
     t.text "body"
@@ -19,7 +19,19 @@ ActiveRecord::Schema.define(version: 2019_10_25_062917) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "mail_id"
+    t.text "mail_from"
+    t.text "subject"
+    t.text "thread_id"
     t.index ["user_id"], name: "index_queries_on_user_id"
+  end
+
+  create_table "tokens", force: :cascade do |t|
+    t.string "access_token"
+    t.string "refresh_token"
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
